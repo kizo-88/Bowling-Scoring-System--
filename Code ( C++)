@@ -1,0 +1,710 @@
+#include <stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<string.h>
+#define maxsize 6
+
+int main(int, char**);
+void welcome_system(void);
+void null(void);
+void main_menu(void);
+void start_game(void);
+void manage_player(void);
+void player_menu(void);
+void add_player(void);
+void delete_player(void);
+void search_player(void);
+void update_player(void);
+void score_game(void);
+void exit_system(void);
+
+struct frame
+{
+    int lane, game;
+};
+
+struct game
+{
+    int score;
+    struct frame frm;
+};
+
+struct number
+{
+    int number;
+    struct game gme;
+};
+
+struct player
+{
+    char name[50];
+    struct number num;
+    struct player *ptrnext;
+};
+
+struct player *headptr, *newptr, *currentptr, *previousptr;
+
+int main(int argc, char *argv[])
+{
+    char menu;
+    int exit = 0;
+    welcome_system();
+    if(argc > 1)
+    {
+        printf("%s : Start Up Error ", argv[0]);
+		fflush(stdin);
+		getch();
+		return (exit);
+    }
+    null();
+    do
+    {
+        main_menu();
+        fflush(stdin);
+		menu = (char)getch();
+		switch(menu)
+		{
+		    case '1':
+			{
+				start_game();
+				break;
+			}
+		    case '2':
+			{
+				exit = 1;
+				break;
+			}
+		    default:
+			{
+				printf("INVALID OPTION!");
+				fflush(stdin);
+				getch();
+				break;
+			}
+		}
+    }
+    while(exit == 0);
+    exit_system();
+	fflush(stdin);
+	getch();
+    return (0);
+}
+
+void welcome_system(void)
+{
+
+    system("cls");
+
+    printf("    Welcome to Bowling Center\n\n");
+
+	printf("               .-.\n");
+    printf("               \\ /      .-.\n");
+    printf("               |_|  .-. \\ /\n");
+    printf("               |=|  \\ / |_|\n");
+    printf("              /   \\ |_| |=|\n");
+    printf("             | (@) ||=|/   \\\n");
+    printf("        ____ |     /   \\@)  |\n");
+    printf("      .'    '.    | (@) |   |\n");
+    printf("     / #      \\   |     |   |\n");
+    printf("    |          |  |     |   |\n");
+    printf("    |    o o   |='|     |  /\n");
+    printf("     \\     o  /    \\   /'='\n");
+    printf("      '.____.'      '='\n\n\n");
+
+    printf("     PRESS ANY KEY TO CONTINUE");
+
+ 	fflush(stdin);
+	getch();
+}
+
+void main_menu(void)
+{
+    system("cls");
+
+	printf("\n _____________________________________________");
+	printf("\n|                  MAIN MENU                  |");
+	printf("\n|_____________________________________________|");
+    printf("\n|               [1] START GAME                |");
+    printf("\n|_____________________________________________|");
+    printf("\n|               [2] EXIT                      |");
+    printf("\n|_____________________________________________|");
+
+	printf("\n\nENTER NUMBER:");
+}
+
+void start_game(void)
+{
+    system("cls");
+
+    int lane, game, nop, i;
+    char name[50][maxsize];
+    int pin1[maxsize], pin2[maxsize], pin3[maxsize], pin4[maxsize], pin5[maxsize];
+    int pin6[maxsize], pin7[maxsize], pin8[maxsize], pin9[maxsize], pin10[maxsize];
+    int pin11[maxsize], pin12[maxsize], pin13[maxsize], pin14[maxsize], pin15[maxsize];
+    int pin16[maxsize], pin17[maxsize], pin18[maxsize], pin19[maxsize], pin20[maxsize], pin21[maxsize];
+    int score1[maxsize], score2[maxsize], score3[maxsize], score4[maxsize], score5[maxsize];
+    int score6[maxsize], score7[maxsize], score8[maxsize], score9[maxsize], totalscore[maxsize];
+
+    printf("\n ____________________________________________");
+    printf("\n Enter lane : ");
+    scanf("%d",&lane);
+    printf(" ____________________________________________");
+    printf("\n Enter game : ");
+    scanf("%d",&game);
+    printf(" ____________________________________________");
+    printf("\n Please enter the number of players (1-6): ");
+    scanf("%d",&nop);
+    printf(" ____________________________________________");
+    for(i=0; i<nop; i++)
+	{
+    printf("\n Name : ");
+    scanf("%s",&name[i]);
+    printf(" ____________________________________________");
+	}
+
+    for(i=0; i<nop; i++)
+	{
+	    if(name[i] == 0)
+	    {
+	        system("cls");
+	        printf("\n Turn : %s",name[i]);
+	        printf("\n\n Set 1");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin1[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin2[i]);
+	        score1[i] = pin1[i] + pin2[i];
+
+	        printf("\n\n Set 2");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin3[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin4[i]);
+	        score2[i] = pin3[i] + pin4[i] + score1[i];
+
+	        printf("\n\n Set 3");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin5[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin6[i]);
+	        score3[i]= pin5[i] + pin6[i] + score2[i];
+
+	        printf("\n\n Set 4");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin7[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin8[i]);
+	        score4[i] = pin7[i] + pin8[i] + score3[i];
+
+	        printf("\n\n Set 5");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin9[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin10[i]);
+	        score5[i] = pin9[i] + pin10[i] + score4[i];
+
+	        printf("\n\n Set 6");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin11[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin12[i]);
+	        score6[i] = pin11[i] + pin12[i] + score5[i];
+
+	        printf("\n\n Set 7");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin13[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin14[i]);
+	        score7[i] = pin13[i] + pin14[i] + score6[i];
+
+	        printf("\n\n Set 8");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin15[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin16[i]);
+	        score8[i] = pin15[i] + pin16[i] + score7[i];
+
+	        printf("\n\n Set 9");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin17[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin18[i]);
+	        score9[i] = pin17[i] + pin18[i] + score8[i];
+
+	        printf("\n\n Set 10");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin19[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin20[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin21[i]);
+	        totalscore[i] = pin19[i] + pin20[i] + pin21[i] + score9[i];
+	    }
+	    else
+        {
+            system("cls");
+	        printf("\n Turn : %s",name[i]);
+	        printf("\n\n Set 1");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin1[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin2[i]);
+	        score1[i] = pin1[i] + pin2[i];
+
+	        printf("\n\n Set 2");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin3[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin4[i]);
+	        score2[i] = pin3[i] + pin4[i] + score1[i];
+
+	        printf("\n\n Set 3");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin5[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin6[i]);
+	        score3[i]= pin5[i] + pin6[i] + score2[i];
+
+	        printf("\n\n Set 4");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin7[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin8[i]);
+	        score4[i] = pin7[i] + pin8[i] + score3[i];
+
+	        printf("\n\n Set 5");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin9[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin10[i]);
+	        score5[i] = pin9[i] + pin10[i] + score4[i];
+
+	        printf("\n\n Set 6");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin11[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin12[i]);
+	        score6[i] = pin11[i] + pin12[i] + score5[i];
+
+	        printf("\n\n Set 7");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin13[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin14[i]);
+	        score7[i] = pin13[i] + pin14[i] + score6[i];
+
+	        printf("\n\n Set 8");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin15[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin16[i]);
+	        score8[i] = pin15[i] + pin16[i] + score7[i];
+
+	        printf("\n\n Set 9");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin17[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin18[i]);
+	        score9[i] = pin17[i] + pin18[i] + score8[i];
+
+	        printf("\n\n Set 10");
+	        printf("\n\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin19[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin20[i]);
+	        printf("\n How many pins were hit on this bowl: ");
+	        scanf("%d",&pin21[i]);
+	        totalscore[i] = pin19[i] + pin20[i] + pin21[i] + score9[i];
+        }
+	}
+
+    system("cls");
+
+    printf("\n _________________________________________________________________________________ \n");
+	printf("| Lane:  %d, Game:  %d |__1__|__2__|__3__|__4__|__5__|__6__|__7__|__8__|__9__|__10__|\n",lane,game);
+    for(i=0; i<nop; i++)
+    {
+    printf("|                    | %d|%d | %d|%d | %d|%d | %d|%d | %d|%d | %d|%d | %d|%d | %d|%d | %d|%d | %d|%d %d|\n", pin1[i], pin2[i], pin3[i], pin4[i], pin5[i], pin6[i], pin7[i], pin8[i], pin9[i], pin10[i], pin11[i], pin12[i], pin13[i], pin14[i], pin15[i], pin16[i], pin17[i], pin18[i], pin19[i], pin20[i], pin21[i]);
+    printf("| Player:  %s      | %d  | %d  | %d  | %d  | %d  | %d  | %d  | %d  | %d  | %d  |\n", name[i], score1[i], score2[i], score3[i], score4[i], score5[i], score6[i], score7[i], score8[i], score9[i], totalscore[i]);
+    printf("`--------------------'-----'-----'-----'-----'-----'-----'-----'-----'-----'------'\n");
+    }
+
+	printf("\n\n _________________________________________________________________________ ");
+	printf("\n|Note : Please remember final score of all player to manage player details|");
+	printf("\n`_________________________________________________________________________'\n");
+
+	fflush(stdin);
+	getch();
+	manage_player();
+}
+
+void manage_player(void)
+{
+    char menu;
+	int exit = 0;
+	do
+	{
+		player_menu();
+		fflush(stdin);
+		menu = (char)getch();
+		switch(menu)
+		{
+			case '1':
+			{
+				add_player();
+				break;
+			}
+			case '2':
+			{
+				delete_player();
+				break;
+			}
+			case '3':
+			{
+				search_player();
+				break;
+			}
+			case '4':
+			{
+				update_player();
+				break;
+			}
+			case '5':
+			{
+			    score_game();
+				break;
+			}
+			default:
+			{
+				printf("INVALID OPTION!");
+				getch();
+			}
+		}
+	}
+	while(exit == 0);
+}
+
+void player_menu(void)
+{
+    system("cls");
+
+	printf("\n _____________________________________________");
+	printf("\n|                 PLAYER MENU                 |");
+	printf("\n|_____________________________________________|");
+    printf("\n|              [1] ADD PLAYER                 |");
+    printf("\n|_____________________________________________|");
+    printf("\n|              [2] DELETE PLAYER              |");
+    printf("\n|_____________________________________________|");
+    printf("\n|              [3] SEARCH PLAYER              |");
+    printf("\n|_____________________________________________|");
+    printf("\n|              [4] UPDATE PLAYER              |");
+    printf("\n|_____________________________________________|");
+    printf("\n|              [5] PROCEED                    |");
+    printf("\n|_____________________________________________|");
+
+	printf("\n\nENTER NUMBER:");
+}
+
+void add_player(void)
+{
+    system("cls");
+    struct player info;
+    newptr=(struct player *)malloc(sizeof (struct player));
+
+    printf("\nAdd Player\n");
+	printf("\nEnter Player Number: ");
+	scanf("%d",&newptr->num.number);
+	printf("\nEnter Name: ");
+	scanf("%s",&newptr->name);
+	printf("\nEnter Lane: ");
+	scanf("%d",&newptr->num.gme.frm.lane);
+	printf("\nEnter Game: ");
+	scanf("%d",&newptr->num.gme.frm.game);
+	printf("\nEnter Score: ");
+	scanf("%d",&newptr->num.gme.score);
+
+    if(headptr==NULL)
+    {
+        headptr=newptr;
+        newptr->ptrnext=NULL;
+    }
+
+    else
+    {
+        newptr->ptrnext=headptr;
+		headptr=newptr;
+    }
+}
+
+void delete_player(void)
+{
+    system("cls");
+    int number;
+    if (headptr==NULL)
+    {
+        printf("\nThe list is empty !!!\n");
+    }
+
+    else
+    {
+        printf("\nDelete Player\n");
+        printf("\nEnter player number to delete: ");
+        scanf("%d",&number);
+
+        currentptr=headptr;
+
+        while(currentptr->ptrnext!=NULL)
+        {
+            if (currentptr->num.number == number)
+            {
+                printf("\n _____________________________________________");
+                printf("\n|   Player   |        Name        |   Score   |");
+                printf("\n|____________|____________________|___________|");
+                printf("\n|     %d      |        %s        |    %d    |", currentptr->num.number, currentptr->name, currentptr->num.gme.score);
+                printf("\n|____________|____________________|___________|");
+                printf("\n\nThis player has been deleted");
+                break;
+            }
+
+            else
+            {
+                previousptr=currentptr;
+                currentptr=currentptr->ptrnext;
+            }
+        }
+
+        if(currentptr->num.number == number)
+        {
+            if (currentptr==headptr)
+            {
+                headptr=currentptr ->ptrnext;
+                free(currentptr);
+            }
+
+            else
+            {
+                previousptr->ptrnext=currentptr->ptrnext;
+                free(currentptr);
+            }
+        }
+
+        else
+            printf("\nNumber to be deleted is not in the list !!! ");
+    }
+    fflush(stdin);
+	getch();
+}
+
+void search_player(void)
+{
+    system("cls");
+
+    int searchValue;
+
+	if (headptr==NULL)
+    {
+        printf("\nThe list is empty !!!\n");
+    }
+
+	else
+    {
+        printf("\nSearch Player\n");
+        printf("\nEnter player number to search: ");
+        scanf("%d",&searchValue);
+
+        currentptr=headptr;
+
+        while(currentptr->ptrnext!=NULL)
+        {
+            if (currentptr->num.number == searchValue)
+            {
+                break;
+            }
+            else
+            {
+                currentptr=currentptr->ptrnext;
+            }
+
+        }
+
+        if (currentptr->num.number == searchValue)
+        {
+            printf("\n\nPlayer found");
+            printf("\n _____________________________________________");
+            printf("\n|   Player   |        Name        |   Score   |");
+            printf("\n|____________|____________________|___________|");
+            printf("\n|     %d      |        %s        |    %d    |", currentptr->num.number, currentptr->name, currentptr->num.gme.score);
+            printf("\n|____________|____________________|___________|");
+        }
+        else
+        {
+          	printf("\nSorry, no match found ");
+        }
+    }
+    fflush(stdin);
+	getch();
+}
+
+void update_player(void)
+{
+    system("cls");
+
+    int pos = 0, old, news;
+
+    currentptr = headptr;
+
+    if(headptr==NULL)
+        {
+            printf("\nThe list is empty !!!\n");
+        }
+
+    else
+    {
+        printf("\nUpdate Player\n");
+        printf("\nInsert old score to be updated: ");
+        scanf("%d",&old);
+        printf("\nInsert new score to be updated: ");
+        scanf("%d",&news);
+
+    while(currentptr->ptrnext!=NULL)
+    {
+        if(currentptr->num.gme.score == old)
+        {
+            break;
+        }
+        else
+        {
+            currentptr = currentptr->ptrnext;
+            pos++;
+        }
+    }
+
+        if(currentptr->num.gme.score == old)
+        {
+            currentptr->num.gme.score = news;
+            printf("\nOld");
+            printf("\n _____________________________________________");
+            printf("\n|   Player   |        Name        |   Score   |");
+            printf("\n|____________|____________________|___________|");
+            printf("\n|     %d      |        %s        |    %d    |", currentptr->num.number, currentptr->name, old);
+            printf("\n|____________|____________________|___________|\n");
+            printf("\n                       ||                     ");
+            printf("\n                       ||                     ");
+            printf("\nNew");
+            printf("\n _____________________________________________");
+            printf("\n|   Player   |        Name        |   Score   |");
+            printf("\n|____________|____________________|___________|");
+            printf("\n|     %d      |        %s        |    %d    |", currentptr->num.number, currentptr->name, news);
+            printf("\n|____________|____________________|___________|");
+        }
+        else
+        {
+            printf("\n%d does not exist in the list\n", old);
+        }
+    }
+
+	fflush(stdin);
+	getch();
+}
+
+void score_game(void)
+{
+    system("cls");
+
+    int a, b, i, temp, score[maxsize];
+
+    if (headptr==NULL)
+    {
+        printf("\nPlease add player details first !!!\n");
+    }
+
+    else
+    {
+    currentptr = headptr;
+
+        printf("\nList of Player");
+        printf("\n ___________________________________________________________");
+        printf("\n|     Game    |   Player   |        Name        |   Score   |");
+        printf("\n|_____________|____________|____________________|___________|");
+
+        do
+        {
+            printf("\n|   Lane : %d  |     %d      |        %s        |    %d    |", currentptr->num.gme.frm.lane, currentptr->num.number, currentptr->name, currentptr->num.gme.score);
+            printf("\n|   Game : %d  |            |                    |           |", currentptr->num.gme.frm.game);
+            printf("\n|_____________|____________|____________________|___________|");
+
+            score[a] = currentptr->num.gme.score;
+            a=a+1;
+
+            currentptr = currentptr->ptrnext;
+        }
+        while(currentptr != NULL);
+
+        for(i=0;i<a;i++)
+            {
+                for(b=i+1;b<a;b++)
+                {
+                    if(score[i]<score[b])
+                    {
+                        temp = score[i];
+                        score[i] = score[b];
+                        score[b] = temp;
+                    }
+                }
+            }
+
+        printf("\n\n\n        .-..-\"\"``\"\"-..-.\n");
+        printf("        |(`\\`'----'`/`)|\n");
+        printf("         \\\\ ;:.    ; //\n");
+        printf("          \\\\||.    |//\n");
+        printf("           )||:    |(\n");
+        printf("         ((,||.    |,))\n");
+        printf("          '-\\::.   /-'\n");
+        printf("             '::..'\n");
+        printf("               }{\n");
+        printf("              {__}\n");
+        printf("             /    \\\n");
+        printf("            |`----'|\n");
+        printf("            | [#1] |\n");
+        printf("            '.____.'\n\n");
+
+        printf("Score Position");
+        printf("\n _______________");
+        printf("\n|     Score     |");
+        printf("\n|_______________|");
+
+        for(i=0; i<b; i++)
+            {
+                printf("\n|      %d      |", score[i]);
+                printf("\n|_______________|");
+            }
+    }
+
+    fflush(stdin);
+	getch();
+}
+
+void null(void)
+{
+}
+
+void exit_system(void)
+{
+	system("cls");
+
+	printf("               .-.\n");
+    printf("               \\ /      .-.\n");
+    printf("               |_|  .-. \\ /\n");
+    printf("               |=|  \\ / |_|\n");
+    printf("              /   \\ |_| |=|\n");
+    printf("             | (@) ||=|/   \\\n");
+    printf("        ____ |     /   \\@)  |\n");
+    printf("      .'    '.    | (@) |   |\n");
+    printf("     / #      \\   |     |   |\n");
+    printf("    |          |  |     |   |\n");
+    printf("    |    o o   |='|     |  /\n");
+    printf("     \\     o  /    \\   /'='\n");
+    printf("      '.____.'      '='\n\n\n");
+
+	printf ("     THANK YOU, SEE YOU AGAIN!!!\n");
+}
